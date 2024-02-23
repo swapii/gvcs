@@ -1,11 +1,7 @@
 plugins {
     `java-gradle-plugin`
-    kotlin("jvm") version "1.7.0"
+    kotlin("jvm") version "1.9.22"
     `maven-publish`
-}
-
-repositories {
-    mavenCentral()
 }
 
 gradlePlugin {
