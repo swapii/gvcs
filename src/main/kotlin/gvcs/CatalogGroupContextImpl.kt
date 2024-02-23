@@ -72,8 +72,23 @@ class CatalogGroupContextImpl(
         groupArtifactVersion: String,
     ) {
         require(groupArtifactVersion.isNotBlank())
-        val (group, artifact, version) = groupArtifactVersion.split(":")
-        builder.library(prefix, group, artifact).version(version)
+        val (group, artifact, version) =
+            groupArtifactVersion.split(":")
+                .let {
+                    if (it.size == 3) {
+                        it
+                    } else {
+                        it + ":"
+                    }
+                }
+        builder.library(prefix, group, artifact)
+            .apply {
+                if (version.isBlank()) {
+                    withoutVersion()
+                } else {
+                    version(version)
+                }
+            }
     }
 
     override fun library(
@@ -91,8 +106,23 @@ class CatalogGroupContextImpl(
     ) {
         require(alias.isNotBlank())
         require(groupArtifactVersion.isNotBlank())
-        val (group, artifact, version) = groupArtifactVersion.split(":")
-        builder.library("$prefix.$alias".removePrefix("."), group, artifact).version(version)
+        val (group, artifact, version) =
+            groupArtifactVersion.split(":")
+                .let {
+                    if (it.size == 3) {
+                        it
+                    } else {
+                        it + ":"
+                    }
+                }
+        builder.library("$prefix.$alias".removePrefix("."), group, artifact)
+            .apply {
+                if (version.isBlank()) {
+                    withoutVersion()
+                } else {
+                    version(version)
+                }
+            }
     }
 
     override fun library(
