@@ -68,15 +68,42 @@ class CatalogGroupContextImpl(
             }
     }
 
-    override fun library(groupArtifactVersion: String) {
+    override fun library(
+        groupArtifactVersion: String,
+    ) {
         require(groupArtifactVersion.isNotBlank())
-        builder.library(prefix, groupArtifactVersion)
+        val (group, artifact, version) = groupArtifactVersion.split(":")
+        builder.library(prefix, group, artifact).version(version)
     }
 
-    override fun library(alias: String, groupArtifactVersion: String) {
+    override fun library(
+        groupArtifact: String,
+        build: VersionCatalogBuilder.LibraryAliasBuilder.() -> Unit,
+    ) {
+        require(groupArtifact.isNotBlank())
+        val (group, artifact) = groupArtifact.split(":")
+        builder.library(prefix, group, artifact).build()
+    }
+
+    override fun library(
+        alias: String,
+        groupArtifactVersion: String,
+    ) {
         require(alias.isNotBlank())
         require(groupArtifactVersion.isNotBlank())
-        builder.library("$prefix.$alias".removePrefix("."), groupArtifactVersion)
+        val (group, artifact, version) = groupArtifactVersion.split(":")
+        builder.library("$prefix.$alias".removePrefix("."), group, artifact).version(version)
+    }
+
+    override fun library(
+        alias: String,
+        groupArtifact: String,
+        build: VersionCatalogBuilder.LibraryAliasBuilder.() -> Unit,
+    ) {
+        require(alias.isNotBlank())
+        require(groupArtifact.isNotBlank())
+        val (group, artifact) = groupArtifact.split(":")
+        builder.library("$prefix.$alias".removePrefix("."), group, artifact).build()
     }
 
     private fun getChildGroupPrefix(prefix: String) =
