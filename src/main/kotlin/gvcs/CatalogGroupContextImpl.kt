@@ -47,15 +47,25 @@ class CatalogGroupContextImpl(
         builder.version("$prefix.$alias".removePrefix("."), version)
     }
 
-    override fun plugin(id: String) {
+    override fun plugin(id: String, version: String?) {
         require(id.isNotBlank())
         builder.plugin(prefix, id)
+            .apply {
+                if (!version.isNullOrBlank()) {
+                    version(version)
+                }
+            }
     }
 
-    override fun plugin(alias: String, id: String) {
+    override fun plugin(alias: String, id: String, version: String?) {
         require(alias.isNotBlank())
         require(id.isNotBlank())
         builder.plugin("$prefix.$alias".removePrefix("."), id)
+            .apply {
+                if (!version.isNullOrBlank()) {
+                    version(version)
+                }
+            }
     }
 
     override fun library(groupArtifactVersion: String) {

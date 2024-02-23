@@ -20,11 +20,13 @@ interface CatalogGroupContext {
 
     fun plugin(
         id: String,
+        version: String? = null,
     )
 
     fun plugin(
         alias: String,
         id: String,
+        version: String? = null,
     )
 
     fun library(
