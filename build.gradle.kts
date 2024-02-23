@@ -1,23 +1,18 @@
 plugins {
-    `java-gradle-plugin`
     kotlin("jvm") version "1.9.22"
     `maven-publish`
-}
-
-gradlePlugin {
-    plugins {
-        create("plugin") {
-            id = "$group.gvcs"
-            implementationClass = "gvcs.GVCSPlugin"
-        }
-    }
+    `java-gradle-plugin` // Need to force JitPack publish artifact with needed group
 }
 
 publishing {
     publications {
         create<MavenPublication>("plugin") {
-            artifactId = "$group.gvcs.gradle.plugin"
+            artifactId = "gvcs-gradle-plugin"
             from(components["java"])
         }
     }
+}
+
+dependencies {
+    implementation(gradleApi())
 }
