@@ -1,5 +1,3 @@
-rootProject.name = "GVCS"
-
 pluginManagement {
 
     repositories {
