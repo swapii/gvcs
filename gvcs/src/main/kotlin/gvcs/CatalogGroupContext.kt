@@ -18,6 +18,15 @@ interface CatalogGroupContext {
         version: String,
     )
 
+    fun plugin(
+        id: String,
+    )
+
+    fun plugin(
+        alias: String,
+        id: String,
+    )
+
     fun library(
         groupArtifactVersion: String,
     )
