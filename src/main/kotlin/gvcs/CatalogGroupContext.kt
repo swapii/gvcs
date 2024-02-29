@@ -22,14 +22,12 @@ interface CatalogGroupContext {
 
     fun plugin(
         id: String,
-        version: String? = null,
-    )
+    ): VersionCatalogBuilder.PluginAliasBuilder
 
     fun plugin(
         alias: String,
         id: String,
-        version: String? = null,
-    )
+    ): VersionCatalogBuilder.PluginAliasBuilder
 
     fun library(
         groupArtifactVersion: String,
